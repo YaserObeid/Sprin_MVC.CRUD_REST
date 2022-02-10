@@ -1,0 +1,95 @@
+spring-mvc-crm-rest
+1- pom.xml
+    dependencoes:
+    - Spring-webmvc
+    - Spring-Transaction: spring-tx
+    - object relaction mapping (support using hibernate): spring-orm
+    - converting POJOs to JSON: jackson-databind
+    - storing data in the database: hibernate-converting
+    - database implementation: mysqk-connector-java
+    - connection pooling framework: c3po
+    - use of the Servlet API in the background: javax.servlet-api
+    - make JSP page in our project: javax.servlet.jsp-api
+    - for Java 9 and higher for not including JAXB: jaxb-api
+    build:
+    - finalName
+    - plugins: maven-war-plugin
+    
+place db.properties: src/main/resources/db.properties
+2- java config
+    - AppConfig: 
+        - rest dont need viewResolver
+        - Bean: DataSource
+        - Hibernate prperties: props
+        - Bean:  LocalSessionFactory
+        - Bean: HibernateTransactionManager
+
+    - DispacherServletInitializer
+
+3- database connection config
+    - AppConfig
+    - DispacherServletInitializer
+
+4- Hibernate Rntity Classes: Customer
+    - customer Entity with mapping to db
+
+5- DAO: CusromerDAO
+    - DAO interface: all functions
+    - DAOImplementation: 
+        inject SessionFactory
+        override the functions
+
+      implementation
+
+6- Service: CustomerService
+    - is the services side for talking to backend DAO side
+    - Service interface: all function 
+    - Devicemplementation: 
+        inject the DAO
+        delegate the call of functions
+
+7- create database Schema: customer-tracker
+
+8- restController
+    - create CustomerController
+        inject CustomerService
+        add requestMapping: 
+            GET: /api/customers -> listCustomers 
+            GET: /api/customers/{customer_ID} -> customer
+    - create global exceptionHndler
+        CustomerErrorResponse.class
+        CustomerNotFoundException.class
+            constructors from the super class
+        update our REST service to throw an exception if not found
+        CustomerRestExceptionHandler.class(ControllerAdvice)
+            methods for exception handling:
+                not found
+                other exceptions
+    - go on add requestMapping:
+        post: /api/customers -> addCustomer
+            RequestBody
+            force a save of new item instead of update
+            return the customer
+            *for HTTP Status 405 ? Method Not Allowed
+                You can resolve this by disabling CSRF:
+                public class SecurityConfig extends WebSecurityConfigurerAdapter {
+                ...
+                protected void configure(HttpSecurity http){...}
+                ...
+                    http.csrf().disable();
+                ...
+                }
+        
+        PUT: /api/customers -> update an existing customer
+            the same add since the is is provided
+        
+        DELETE: /api/customers/{customer_ID}
+                check if customer exists
+                else throw exception
+                return String 
+
+
+                
+
+            test the result in postmann
+
