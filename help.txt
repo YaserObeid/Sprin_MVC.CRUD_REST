@@ -30,7 +30,7 @@ place db.properties: src/main/resources/db.properties
     - AppConfig
     - DispacherServletInitializer
 
-4- Hibernate Rntity Classes: Customer
+4- Hibernate Entity Classes: Customer
     - customer Entity with mapping to db
 
 5- DAO: CusromerDAO

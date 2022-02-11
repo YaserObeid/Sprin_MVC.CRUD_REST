@@ -25,7 +25,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("com.obeid.springrest.crud")
-@PropertySource("classpath.properties")
+@PropertySource({"classpath:db.properties"})
 public class AppWebConfig implements WebMvcConfigurer {
 
 	// load properties
@@ -57,7 +57,7 @@ public class AppWebConfig implements WebMvcConfigurer {
 		// set database connection props
 
 		dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
-		dataSource.setUser(env.getProperty("jdbc,user"));
+		dataSource.setUser(env.getProperty("jdbc.user"));
 		dataSource.setPassword(env.getProperty("jdbc.password"));
 
 		// set database connection props
@@ -86,8 +86,8 @@ public class AppWebConfig implements WebMvcConfigurer {
 
 	// helper method
 	private int getIntProperty(String property) {
-
-		return Integer.getInteger(env.getProperty(property));
+		int propVal = Integer.parseInt(env.getProperty(property));
+		return propVal;
 	}
 
 	// define SessionFactory
