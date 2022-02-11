@@ -2,6 +2,11 @@ package com.obeid.springrest.crud.rest;
 
 public class CustomerNotFounfException extends RuntimeException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public CustomerNotFounfException() {
 		
 	}
