@@ -21,6 +21,17 @@ public class CustomerRestExceptionHandler {
 		return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
 	}
 	
+	// bad request exception (global exception)
+		@ExceptionHandler
+		public ResponseEntity<CustomerErrorResponse> handleException(Exception e){
+			// create Error response
+			CustomerErrorResponse error = 
+					new CustomerErrorResponse(HttpStatus.BAD_REQUEST.value(), 
+											 "chech your request! some entries are invalid",
+											 System.currentTimeMillis());
+			return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+		}
+	
 	
 
 }
