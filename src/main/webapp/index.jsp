@@ -1,6 +1,8 @@
 <html>
 <body>
-<h1>Customer CRM Rest full CRUD</h1>
+<h2>Customer CRM REST-api</h2>
 <hr>
+<a href="api/customers">Customer list </a>
+
 </body>
 </html>
